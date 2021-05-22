@@ -4,8 +4,6 @@ public final class Company {
     private int id;
     private String name;
 
-    public Company() {}
-
     public Company(String name) {
         this.name = name;
     }
@@ -17,10 +15,6 @@ public final class Company {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

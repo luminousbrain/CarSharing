@@ -1,5 +1,6 @@
-package ru.gontarenko.carsharing.dao;
+package ru.gontarenko.carsharing.dao.impl;
 
+import ru.gontarenko.carsharing.dao.CompanyDAO;
 import ru.gontarenko.carsharing.entities.Company;
 import ru.gontarenko.carsharing.util.H2Database;
 
@@ -11,58 +12,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CompanyDAOImpl implements CompanyDAO {
+public final class CompanyDAOImpl implements CompanyDAO {
     private final String createTable = "CREATE TABLE IF NOT EXISTS COMPANY (" +
             "id INT NOT NULL AUTO_INCREMENT," +
             "name VARCHAR(255) UNIQUE NOT NULL," +
             "PRIMARY KEY (id)" +
             ");";
-
     private final String selectAllCompany = "SELECT * FROM COMPANY;";
     private final String selectById = "SELECT * FROM COMPANY WHERE id = ?;";
     private final String insertCompany = "INSERT INTO COMPANY(name) VALUES (?);";
+    private final String resetId = "ALTER TABLE COMPANY ALTER COLUMN id RESTART WITH 1;";
 
     public CompanyDAOImpl() {
-        // init table
         try (Connection connection = H2Database.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(createTable)) {
-//            connection.setAutoCommit(true);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public List<Company> findAll() {
-        List<Company> list = new ArrayList<>();
         try (Connection connection = H2Database.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(selectAllCompany)
-        ) {
-//            connection.setAutoCommit(true);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    list.add(new Company(
-                            resultSet.getInt("id"),
-                            resultSet.getString("name")
-                    ));
-                }
-            }
+             PreparedStatement preparedStatement = connection.prepareStatement(resetId)) {
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
     }
 
     @Override
     public boolean save(Company company) {
         try (Connection connection = H2Database.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertCompany)) {
-//            connection.setAutoCommit(true);
             preparedStatement.setString(1, company.getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-//            e.printStackTrace();
             return false;
         }
         return true;
@@ -72,7 +54,6 @@ public class CompanyDAOImpl implements CompanyDAO {
     public Optional<Company> findById(int companyId) {
         try (Connection connection = H2Database.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(selectById)) {
-//            connection.setAutoCommit(true);
             preparedStatement.setInt(1, companyId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -87,5 +68,25 @@ public class CompanyDAOImpl implements CompanyDAO {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<Company> findAll() {
+        List<Company> list = new ArrayList<>();
+        try (Connection connection = H2Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectAllCompany)
+        ) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    list.add(new Company(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

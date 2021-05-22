@@ -8,7 +8,7 @@ import java.util.Objects;
 public final class H2Database {
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "org.h2.Driver";
-    static  String DB_URL = "jdbc:h2:D:\\Java\\repos\\JBAcademy\\Git\\CarSharing\\src\\main\\java\\ru\\gontarenko\\carsharing\\db\\";
+    static  String DB_URL = "jdbc:h2:D:./src/main/java/ru/gontarenko/carsharing/db/";
 
     //  Database credentials
     static final String USER = "";
@@ -18,7 +18,7 @@ public final class H2Database {
 
     static {
         try {
-            Class.forName("org.h2.Driver");
+            Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

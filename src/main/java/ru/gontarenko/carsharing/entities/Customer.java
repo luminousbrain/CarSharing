@@ -1,19 +1,19 @@
 package ru.gontarenko.carsharing.entities;
 
-public final class Car {
+public final class Customer {
     private int id;
     private String name;
-    private final Integer companyId;
+    private Integer rentedCarId;
 
-    public Car(String name, Integer companyId) {
+    public Customer(String name) {
         this.name = name;
-        this.companyId = companyId;
+        rentedCarId = null;
     }
 
-    public Car(int id, String name, Integer companyId) {
+    public Customer(int id, String name, Integer rentedCarId) {
         this.id = id;
         this.name = name;
-        this.companyId = companyId;
+        this.rentedCarId = rentedCarId;
     }
 
     public int getId() {
@@ -28,8 +28,12 @@ public final class Car {
         this.name = name;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public Integer getRentedCarId() {
+        return rentedCarId;
+    }
+
+    public void setRentedCarId(Integer rentedCarId) {
+        this.rentedCarId = rentedCarId;
     }
 
     @Override
