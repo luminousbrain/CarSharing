@@ -1,16 +1,19 @@
-package ru.gontarenko.carsharing.entities;
+package ru.gontarenko.carsharing.entity;
 
-public final class Company {
+public final class Car {
     private int id;
     private String name;
+    private final Integer companyId;
 
-    public Company(String name) {
+    public Car(String name, Integer companyId) {
         this.name = name;
+        this.companyId = companyId;
     }
 
-    public Company(int id, String name) {
+    public Car(int id, String name, Integer companyId) {
         this.id = id;
         this.name = name;
+        this.companyId = companyId;
     }
 
     public int getId() {
@@ -25,9 +28,12 @@ public final class Company {
         this.name = name;
     }
 
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
     @Override
     public String toString() {
         return id + ". " + name;
     }
 }
-

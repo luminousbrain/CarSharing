@@ -1,7 +1,7 @@
 package ru.gontarenko.carsharing.dao.impl;
 
 import ru.gontarenko.carsharing.dao.CompanyDAO;
-import ru.gontarenko.carsharing.entities.Company;
+import ru.gontarenko.carsharing.entity.Company;
 import ru.gontarenko.carsharing.util.H2Database;
 
 import java.sql.Connection;

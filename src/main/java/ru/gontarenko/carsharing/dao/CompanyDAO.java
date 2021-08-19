@@ -1,6 +1,6 @@
 package ru.gontarenko.carsharing.dao;
 
-import ru.gontarenko.carsharing.entities.Company;
+import ru.gontarenko.carsharing.entity.Company;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package ru.gontarenko.carsharing.entities;
+package ru.gontarenko.carsharing.entity;
 
 public final class Customer {
     private int id;

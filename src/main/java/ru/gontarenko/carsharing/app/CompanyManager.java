@@ -2,7 +2,7 @@ package ru.gontarenko.carsharing.app;
 
 import ru.gontarenko.carsharing.dao.CarDAO;
 import ru.gontarenko.carsharing.dao.CompanyDAO;
-import ru.gontarenko.carsharing.entities.Company;
+import ru.gontarenko.carsharing.entity.Company;
 import ru.gontarenko.carsharing.util.UserInput;
 
 import java.util.List;
